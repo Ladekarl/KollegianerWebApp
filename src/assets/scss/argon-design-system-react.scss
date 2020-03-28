@@ -1,0 +1,58 @@
+/*!
+
+=========================================================
+* Argon Design System React - v1.1.0 based on Argon Design System - v1.1.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-design-system-react
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
+
+* Coded by www.creative-tim.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+
+// Bootstrap Functions
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// Theme Variables
+@import "argon-design-system/variables";
+
+// Bootstrap Core
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+// Theme Core
+@import "argon-design-system/theme";
+
+// React Differences
+@import "react/react-differences";
+
+#navbar-main {
+  @include media-breakpoint-up(lg) {
+    padding: 0 1rem;
+
+    .nav-item {
+      border-bottom-style: solid;
+      border-bottom-color: #fff;
+      border-bottom-left-radius: 1px;
+      border-bottom-right-radius: 1px;
+      border-bottom-width: 2px;
+    }
+
+    .nav-item:active {
+      border-bottom-color: #808080;
+    }
+
+    .nav-item:hover {
+      border-bottom-color: #808080;
+    }
+
+    .nav-item {
+      padding: 0.8rem 0;
+    }
+  }
+}
