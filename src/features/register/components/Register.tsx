@@ -33,7 +33,17 @@ class Register extends Component<{}, RegisterState> {
 
     render() {
         return (
-            <section className="section section-shaped">
+            <section className="section section-shaped section-lg">
+                <div className="shape shape-style-1 bg-gradient-default">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                </div>
                 <Container className="lg-7">
                     <Row className="justify-content-center">
                         <Col lg="5">

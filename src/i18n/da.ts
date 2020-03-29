@@ -3,7 +3,7 @@ const da = {
     comingSoon: 'Kommer Snart',
     menu: {
         login: 'Log ind',
-        register: 'Opret profil'
+        register: 'Opret en konto'
     },
     footer: {
         fbTooltip: 'Like os',
@@ -25,7 +25,7 @@ const da = {
         rememberMe: 'Husk mig',
         login: 'Log ind',
         forgotPassword: 'Glemt kodeord?',
-        register: 'Opret ny profil'
+        register: 'Opret ny konto'
     }
 }
 

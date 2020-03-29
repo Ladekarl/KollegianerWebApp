@@ -3,7 +3,7 @@ const en = {
     comingSoon: 'Coming Soon',
     menu: {
         login: 'Login',
-        register: 'Register'
+        register: 'Create Account'
     },
     footer: {
         fbTooltip: 'Like us',
@@ -25,7 +25,7 @@ const en = {
         rememberMe: 'Remember me',
         login: 'Login',
         forgotPassword: 'Forgot password?',
-        register: 'Register'
+        register: 'Create Account'
     }
 };
 

@@ -15,7 +15,6 @@ import {
     Col,
     NavLink
 } from "reactstrap";
-import Background from '../../../components/Background';
 import './Login.scss';
 import { Translate, I18n } from "react-redux-i18n";
 import { getPath } from "../../../routes/routes";
@@ -40,11 +39,19 @@ type Props = typeof dispatchProps & {
 class Login extends Component<Props> {
 
     render() {
-        const background = require("../../../assets/images/backgrounds/men-sofa.jpg");
-
         return (
-            <section className="section section-shaped home">
-                <Background background={background} height="100%" />
+            <section className="section section-lg section-shaped">
+                <div className="shape shape-style-1 shape-default">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                </div>
                 <Container className="lg-7">
                     <Row className="justify-content-center">
                         <Col lg="5">
