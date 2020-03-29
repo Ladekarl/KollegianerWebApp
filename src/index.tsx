@@ -4,10 +4,8 @@ import './styles/custom.scss';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
-import configureStore, { history } from './configureStore';
 import { Provider } from 'react-redux';
-
-const store = configureStore({});
+import store, { history } from './store';
 
 ReactDOM.render(
     <Provider store={store}>

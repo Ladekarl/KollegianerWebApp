@@ -1,26 +1,22 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import Home from '../pages/main/home/Home';
+import Home from '../pages/home/Home';
 import Menu from '../pages/header/Menu';
 import Footer from '../pages/footer/Footer';
-import Routes from './Routes';
-import Login from '../pages/main/login/Login';
-import Register from '../pages/main/register/Register';
-import ComingSoon from '../pages/main/comingSoon/ComingSoon';
+import { getPath } from './routes';
+import Login from '../features/login/components/Login';
+import Register from '../features/register/components/Register';
+import ComingSoon from '../pages/comingSoon/ComingSoon';
 
 export default (
     <div>
         <Menu />
         <Switch>
-            <Route exact path={Routes.FORSIDE} render={() => <Home />} />
-            <Route exact path={Routes.ALLE_SEJLTOGTER} render={(() => (<ComingSoon />))} />
-            <Route exact path={Routes.OPRET_GASTEPROFIL} render={() => <Register />} />
-            <Route exact path={Routes.OPRET_SKIPPERPROFIL} render={() => (<ComingSoon />)} />
-            <Route exact path={Routes.OM_OS} render={() => (<ComingSoon />)} />
-            <Route exact path={Routes.VÆRD_AT_VIDE} render={() => (<ComingSoon />)} />
-            <Route exact path={Routes.ØKONOMI} render={() => (<ComingSoon />)} />
-            <Route exact path={Routes.PRIVATLIVSPOLITIK} render={() => (<ComingSoon />)} />
-            <Route exact path={Routes.LOGIN} render={() => <Login />} />
+            <Route exact path={getPath('home')} render={() => <Home />} />
+            <Route exact path={getPath('aboutUs')} render={() => (<ComingSoon />)} />
+            <Route exact path={getPath('privacyPolicy')} render={() => (<ComingSoon />)} />
+            <Route exact path={getPath('register')} render={() => <Register />} />
+            <Route exact path={getPath('login')} render={() => <Login />} />
         </Switch>
         <Footer />
     </div>

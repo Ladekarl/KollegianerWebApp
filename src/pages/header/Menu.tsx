@@ -1,23 +1,7 @@
-/*!
-=========================================================
-* Argon Design System React - v1.1.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-* Coded by Creative Tim
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 import React from "react";
 import { Link } from "react-router-dom";
-// reactstrap components
 import {
     UncontrolledCollapse,
-    DropdownMenu,
-    DropdownItem,
-    DropdownToggle,
-    UncontrolledDropdown,
     NavbarBrand,
     Navbar,
     NavItem,
@@ -26,8 +10,9 @@ import {
     Row,
     Col
 } from "reactstrap";
-import Routes from "../../routes/Routes";
+import { getPath } from "../../routes/routes";
 import './Menu.scss';
+import { Translate } from "react-redux-i18n";
 
 class Menu extends React.Component {
 
@@ -55,10 +40,10 @@ class Menu extends React.Component {
                     className="navbar-main navbar-light"
                     expand="lg"
                     id="navbar-main">
-                    <NavbarBrand className="mr-lg-5" to={Routes.FORSIDE} tag={Link}>
+                    <NavbarBrand className="mr-lg-5" to={getPath('home')} tag={Link}>
                         <img
-                            alt="..."
-                            src={require("../../assets/images/sailmorelogo.jpg")}
+                            alt="logo"
+                            src={require("../../assets/images/kollegianerlogo.svg")}
                         />
                     </NavbarBrand>
                     <button className="navbar-toggler" id="navbar_global">
@@ -69,15 +54,14 @@ class Menu extends React.Component {
                         navbar
                         className={this.state.collapseClasses}
                         onExiting={this.onExiting}
-                        onExited={this.onExited}
-                    >
+                        onExited={this.onExited}>
                         <div className="navbar-collapse-header">
                             <Row>
                                 <Col className="collapse-brand" xs="6">
-                                    <Link to={Routes.FORSIDE}>
+                                    <Link to={getPath('home')}>
                                         <img
-                                            alt="..."
-                                            src={require("../../assets/images/sailmorelogo.jpg")}
+                                            alt="logo"
+                                            src={require("../../assets/images/kollegianerlogo.svg")}
                                         />
                                     </Link>
                                 </Col>
@@ -91,35 +75,13 @@ class Menu extends React.Component {
                         </div>
                         <Nav className="navbar-nav-hover align-items-lg-center justify-content-lg-end flex-lg-fill" navbar>
                             <NavItem>
-                                <NavLink to={Routes.ALLE_SEJLTOGTER} tag={Link}>
-                                    <span className="nav-link-inner--text">Alle Sejltogter</span>
+                                <NavLink to={getPath('register')} tag={Link}>
+                                    <span className="nav-link-inner--text"><Translate value="menu.register" /></span>
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to={Routes.OPRET_GASTEPROFIL} tag={Link}>
-                                    <span className="nav-link-inner--text">Opret Gasteprofil</span>
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink to={Routes.OPRET_SKIPPERPROFIL} tag={Link}>
-                                    <span className="nav-link-inner--text">Opret Skipperprofil</span>
-                                </NavLink>
-                            </NavItem>
-                            <UncontrolledDropdown nav>
-                                <DropdownToggle nav>
-                                    <i className="fa fa-angle-down mr-1" />
-                                    <span className="nav-link-inner--text">Hjælp</span>
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                    <DropdownItem to={Routes.VÆRD_AT_VIDE} tag={Link}>
-                                        Værd at Vide</DropdownItem>
-                                    <DropdownItem to={Routes.ØKONOMI} tag={Link}>
-                                        Økonomi og Booking</DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-                            <NavItem>
-                                <NavLink to={Routes.LOGIN} tag={Link}>
-                                    <span className="nav-link-inner--text">Login</span>
+                                <NavLink to={getPath('login')} tag={Link}>
+                                    <span className="nav-link-inner--text"><Translate value="menu.login" /></span>
                                 </NavLink>
                             </NavItem>
                         </Nav>
