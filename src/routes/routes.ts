@@ -4,6 +4,7 @@ const pathsMap = {
     privacyPolicy: () => `/privacy-policy`,
     login: () => `/login`,
     register: () => `/register`,
+    forgotPassword: () => `/forgot-password`
 };
 type PathsMap = typeof pathsMap;
 

@@ -60,8 +60,19 @@ const initialState = {
     locale: 'da'
   }
 }
+const overrideValues = {
+  register: {
+    isLoading: false,
+    error: new Error()
+  },
+  login: {
+    isLoading: false,
+    error: new Error()
+  }
+}
 const preloadedState = services.localStorage.get('store') || initialState;
-const store = configureStore(preloadedState);
+const preloadedOverriddenState = { ...preloadedState, ...overrideValues };
+const store = configureStore(preloadedOverriddenState);
 
 epicMiddleware.run(rootEpic);
 

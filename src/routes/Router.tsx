@@ -16,7 +16,8 @@ export default (
             <Route exact path={getPath('aboutUs')} render={() => (<ComingSoon />)} />
             <Route exact path={getPath('privacyPolicy')} render={() => (<ComingSoon />)} />
             <Route exact path={getPath('register')} render={() => <Register />} />
-            <Route exact path={getPath('login')} render={() => <Login />} />
+            <Route exact path={getPath('login')} render={() => <Login forgotPassword={false}/>} />
+            <Route exact path={getPath('forgotPassword')} render={() => <Login forgotPassword={true} />} />
         </Switch>
         <Footer />
     </div>

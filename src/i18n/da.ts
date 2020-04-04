@@ -22,10 +22,26 @@ const da = {
         useLoginInfo: 'Eller brug dine loginoplysninger',
         email: 'Email',
         password: 'Kodeord',
-        rememberMe: 'Husk mig',
         login: 'Log ind',
         forgotPassword: 'Glemt kodeord?',
-        register: 'Opret ny konto'
+        register: 'Opret ny konto',
+        unknownError: 'Der skete en fejl',
+        invalidEmail: 'Ugyldig email',
+        userDisabled: 'Brugeren er deaktiveret',
+        userNotFound: 'Brugeren kunne ikke findes',
+        wrongPassword: 'Forkert kodeord',
+        accountExistsWithDifferentCredential: 'Brugeren eksisterer med en anden loginmetode',
+        authDomainConfigRequired: 'Domænet er ikke konfigureret',
+        cancelledPopupRequest: 'Popupboksen blev afvist',
+        operationNotAllowed: 'Handlingen er ikke tilladt',
+        operationNotSupportedInThisEnvironment: 'Handlingen er ikke understøttet i dette miljø',
+        popupBlocked: 'Popupboksen blev blokeret',
+        popupClosedByUser: 'Popupboksen blev lukket',
+        unauthorizedDomainNr: 'Uautoriseret domænenummer',
+        backToLogin: 'Tilbage til log ind',
+        forgotPasswordTypeMail: 'Indtast din email for at nulstille dit kodeord',
+        resetPassword: 'Nulstil kodeord',
+        passwordResetEmailSent: 'Der er blevet sendt en email som du kan bruge til at nulstille dit kodeord'
     }
 }
 

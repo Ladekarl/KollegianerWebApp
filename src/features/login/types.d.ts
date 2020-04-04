@@ -2,12 +2,13 @@ declare module 'GlobalTypes' {
     export type UserModel = {
         id: string,
         name: string,
-        email: string,
-        token: string
+        email: string
     };
     export type LoginModel = {
         username: string,
-        password: string,
-        rememberMe: boolean
+        password: string
+    }
+    export type ResetPasswordModel = {
+        email: string
     }
 }

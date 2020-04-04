@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
     UncontrolledCollapse,
@@ -14,12 +14,36 @@ import { getPath } from "../../routes/routes";
 import './Menu.scss';
 import { Translate } from "react-redux-i18n";
 
-class Menu extends React.Component {
+type State = {
+    collapseClasses: string,
+    collapseOpen: boolean
+}
+
+class Menu extends Component<{}, State> {
 
     state = {
         collapseClasses: "",
         collapseOpen: false
     };
+
+    openNavBar = () => {
+        this.setState({
+            collapseOpen: true
+        });
+    };
+
+    closeNavBar = () => {
+        this.setState({
+            collapseOpen: false
+        });
+    };
+
+    onTogglerPressed = () => {
+        const prevCollapseOpen = this.state.collapseOpen;
+        this.setState({
+            collapseOpen: !prevCollapseOpen
+        });
+    }
 
     onExiting = () => {
         this.setState({
@@ -46,19 +70,22 @@ class Menu extends React.Component {
                             src={require("../../assets/images/kollegianerlogo.svg")}
                         />
                     </NavbarBrand>
-                    <button className="navbar-toggler" id="navbar_global">
+                    <button className="navbar-toggler" id="navbar_global" onClick={this.openNavBar}>
                         <span className="navbar-toggler-icon" />
                     </button>
                     <UncontrolledCollapse
                         toggler="#navbar_global"
                         navbar
+                        isOpen={this.state.collapseOpen}
                         className={this.state.collapseClasses}
                         onExiting={this.onExiting}
                         onExited={this.onExited}>
                         <div className="navbar-collapse-header">
                             <Row>
                                 <Col className="collapse-brand" xs="6">
-                                    <Link to={getPath('home')}>
+                                    <Link
+                                        to={getPath('home')}
+                                        onClick={this.closeNavBar}>
                                         <img
                                             alt="logo"
                                             src={require("../../assets/images/kollegianerlogo.svg")}
@@ -66,7 +93,7 @@ class Menu extends React.Component {
                                     </Link>
                                 </Col>
                                 <Col className="collapse-close" xs="6">
-                                    <button className="navbar-toggler" id="navbar_global">
+                                    <button className="navbar-toggler" id="navbar_global" onClick={this.closeNavBar}>
                                         <span />
                                         <span />
                                     </button>
@@ -75,12 +102,12 @@ class Menu extends React.Component {
                         </div>
                         <Nav className="navbar-nav-hover align-items-lg-center justify-content-lg-end flex-lg-fill" navbar>
                             <NavItem>
-                                <NavLink to={getPath('register')} tag={Link}>
+                                <NavLink to={getPath('register')} tag={Link} onClick={this.closeNavBar}>
                                     <span className="nav-link-inner--text"><Translate value="menu.register" /></span>
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to={getPath('login')} tag={Link}>
+                                <NavLink to={getPath('login')} tag={Link} onClick={this.closeNavBar}>
                                     <span className="nav-link-inner--text"><Translate value="menu.login" /></span>
                                 </NavLink>
                             </NavItem>
