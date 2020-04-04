@@ -12,13 +12,18 @@ export default (
     <div>
         <Menu />
         <Switch>
-            <Route exact path={getPath('home')} render={() => <Home />} />
-            <Route exact path={getPath('aboutUs')} render={() => (<ComingSoon />)} />
-            <Route exact path={getPath('privacyPolicy')} render={() => (<ComingSoon />)} />
-            <Route exact path={getPath('register')} render={() => <Register />} />
-            <Route exact path={getPath('login')} render={() => <Login forgotPassword={false}/>} />
-            <Route exact path={getPath('forgotPassword')} render={() => <Login forgotPassword={true} />} />
+            <Route exact path={getPath('home')} render={(): React.ReactElement => <Home />} />
+            <Route exact path={getPath('aboutUs')} render={(): React.ReactElement => <ComingSoon />} />
+            <Route exact path={getPath('privacyPolicy')} render={(): React.ReactElement => <ComingSoon />} />
+            <Route exact path={getPath('register')} render={(): React.ReactElement => <Register />} />
+            <Route exact path={getPath('login')} render={(): React.ReactElement => <Login forgotPassword={false} />} />
+            <Route
+                exact
+                path={getPath('forgotPassword')}
+                render={(): React.ReactElement => <Login forgotPassword={true} />}
+            />
+            <Route exact path={getPath('usermgt')} render={(): React.ReactElement => <Login forgotPassword={true} />} />
         </Switch>
         <Footer />
     </div>
-)
+);

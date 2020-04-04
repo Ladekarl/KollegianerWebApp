@@ -1,18 +1,14 @@
-import React from 'react'
-import { History } from 'history'
-import { ConnectedRouter } from 'connected-react-router'
-import Router from './routes/Router'
+import React from 'react';
+import { History } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
+import Router from './routes/Router';
 
 interface AppProps {
-  history: History;
+    history: History;
 }
 
 const App = ({ history }: AppProps) => {
-  return (
-    <ConnectedRouter history={history}>
-      {Router}
-    </ConnectedRouter>
-  )
-}
+    return <ConnectedRouter history={history}>{Router}</ConnectedRouter>;
+};
 
-export default App
+export default App;

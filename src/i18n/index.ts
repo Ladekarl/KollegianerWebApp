@@ -3,7 +3,7 @@ import da from './da';
 
 const messages = {
     en: en,
-    da: da
-}
+    da: da,
+};
 
 export default messages;

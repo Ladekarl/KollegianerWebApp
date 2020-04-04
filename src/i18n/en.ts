@@ -3,14 +3,14 @@ const en = {
     comingSoon: 'Coming Soon',
     menu: {
         login: 'Login',
-        register: 'Create Account'
+        register: 'Create Account',
     },
     footer: {
         fbTooltip: 'Like us',
         daTooltip: 'Skift til dansk',
         enTooltip: 'Change to English',
         aboutUs: 'About Us',
-        privacyPolicy: 'Privacy Policy'
+        privacyPolicy: 'Privacy Policy',
     },
     home: {
         title: 'This is a title',
@@ -37,8 +37,8 @@ const en = {
         operationNotSupportedInThisEnvironment: 'The operation is not supported in this environment',
         popupBlocked: 'The popup was blocked',
         popupClosedByUser: 'The popup was closed',
-        unauthorizedDomainNr: 'Unauthorized domain number'
-    }
+        unauthorizedDomainNr: 'Unauthorized domain number',
+    },
 };
 
 export default en;

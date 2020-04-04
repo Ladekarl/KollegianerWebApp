@@ -1,16 +1,44 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"**/.git": true,
-			"**/.DS_Store": true,
-			"node_modules": true,
-			"build": true,
-			".firebase": true
-		}
-	}
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+            "**/.DS_Store": true,
+            "node_modules": true,
+            "build": true,
+            ".firebase": true
+        },
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        },
+        "eslint.validate": [
+            "javascript",
+            "javascriptreact",
+            {
+                "language": "typescript",
+                "autoFix": true
+            },
+            {
+                "language": "typescriptreact",
+                "autoFix": true
+            }
+        ],
+        "editor.formatOnSave": true,
+        "[javascript]": {
+            "editor.formatOnSave": false
+        },
+        "[javascriptreact]": {
+            "editor.formatOnSave": false
+        },
+        "[typescript]": {
+            "editor.formatOnSave": false
+        },
+        "[typescriptreact]": {
+            "editor.formatOnSave": false
+        }
+    }
 }

@@ -1,9 +1,9 @@
 import { applyMiddleware, createStore, PreloadedState, Store, AnyAction } from 'redux';
-import { createLogger } from 'redux-logger'
-import { createBrowserHistory } from 'history'
-import { routerMiddleware } from 'connected-react-router'
+import { createLogger } from 'redux-logger';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import rootReducer from './rootReducer'
+import rootReducer from './rootReducer';
 import thunk from 'redux-thunk';
 import { syncTranslationWithStore, loadTranslations } from 'react-redux-i18n';
 import messages from '../i18n';
@@ -12,64 +12,44 @@ import { RootAction, RootState, Services } from 'GlobalTypes';
 import services from '../services';
 import rootEpic from './rootEpic';
 
-export const epicMiddleware = createEpicMiddleware<
-  RootAction,
-  RootAction,
-  RootState,
-  Services
->({
-  dependencies: services,
+export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, Services>({
+    dependencies: services,
 });
-
-const getMiddleware = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return applyMiddleware(
-      thunk,
-      routerMiddleware(history),
-      epicMiddleware
-    );
-  }
-
-  return applyMiddleware(
-    thunk,
-    routerMiddleware(history),
-    createLogger(),
-    epicMiddleware
-  );
-};
 
 export const history = createBrowserHistory();
 
-export function configureStore(preloadedState: PreloadedState<any>): Store<any, AnyAction> {
-  const store = createStore(
-    rootReducer(history),
-    preloadedState,
-    composeWithDevTools((
-      getMiddleware()
-    ))
-  )
+const getMiddleware = () => {
+    if (process.env.NODE_ENV === 'production') {
+        return applyMiddleware(thunk, routerMiddleware(history), epicMiddleware);
+    }
 
-  syncTranslationWithStore(store)
-  store.dispatch(loadTranslations(messages) as any);
-
-  return store
+    return applyMiddleware(thunk, routerMiddleware(history), createLogger(), epicMiddleware);
 };
 
+export function configureStore(preloadedState: PreloadedState<any>): Store<any, AnyAction> {
+    const store = createStore(rootReducer(history), preloadedState, composeWithDevTools(getMiddleware()));
+
+    syncTranslationWithStore(store);
+    store.dispatch(loadTranslations(messages) as any);
+
+    return store;
+}
+
 const initialState = {
-  i18n: {
-    locale: 'da'
-  }
-}
+    i18n: {
+        locale: 'da',
+    },
+};
 const overrideValues = {
-  register: {
-    isLoading: false,
-    error: new Error()
-  },
-  login: {
-    isLoading: false,
-    error: new Error()
-  }
-}
+    register: {
+        isLoading: false,
+        error: new Error(),
+    },
+    login: {
+        isLoading: false,
+        error: new Error(),
+    },
+};
 const preloadedState = services.localStorage.get('store') || initialState;
 const preloadedOverriddenState = { ...preloadedState, ...overrideValues };
 const store = configureStore(preloadedOverriddenState);

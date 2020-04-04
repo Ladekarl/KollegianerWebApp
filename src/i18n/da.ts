@@ -3,18 +3,18 @@ const da = {
     comingSoon: 'Kommer Snart',
     menu: {
         login: 'Log ind',
-        register: 'Opret en konto'
+        register: 'Opret en konto',
     },
     footer: {
         fbTooltip: 'Like os',
         daTooltip: 'Skift til dansk',
         enTooltip: 'Change to English',
         aboutUs: 'Om os',
-        privacyPolicy: 'Privatlivspolitik'
+        privacyPolicy: 'Privatlivspolitik',
     },
     home: {
         title: 'Dette er en titel',
-        text: 'Dette er en brødtekst'
+        text: 'Dette er en brødtekst',
     },
     login: {
         loginWith: 'Log ind med',
@@ -38,11 +38,14 @@ const da = {
         popupBlocked: 'Popupboksen blev blokeret',
         popupClosedByUser: 'Popupboksen blev lukket',
         unauthorizedDomainNr: 'Uautoriseret domænenummer',
+        expiredActionCode: 'Linket er udløbet. Prøv at nulstille dit kodeord igen.',
+        invalidActionCode: 'Linket er ikke gyldigt. Prøv at nulstille dit kodeord igen.',
+        weakPassword: 'Kodeordet er for svagt',
         backToLogin: 'Tilbage til log ind',
         forgotPasswordTypeMail: 'Indtast din email for at nulstille dit kodeord',
         resetPassword: 'Nulstil kodeord',
-        passwordResetEmailSent: 'Der er blevet sendt en email som du kan bruge til at nulstille dit kodeord'
-    }
-}
+        passwordResetEmailSent: 'Der er blevet sendt en email som du kan bruge til at nulstille dit kodeord',
+    },
+};
 
 export default da;

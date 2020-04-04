@@ -6,9 +6,7 @@ import RootReducer from './rootReducer';
 
 declare module 'GlobalTypes' {
     export type Store = StateType<Store>;
-    export type RootState = StateType<
-        ReturnType<typeof RootReducer>
-    >;
+    export type RootState = StateType<ReturnType<typeof RootReducer>>;
     export type RootAction = ActionType<RootAction>;
     export type RootEpic = Epic<RootAction, RootAction, RootState, Services>;
 }

@@ -19,7 +19,9 @@ export default function Home(): ReactElement {
             <Container>
                 <Row>
                     <Col className="lg-12 justify-content-center text-center">
-                        <h1 className="heading"><Translate value="comingSoon" /></h1>
+                        <h1 className="heading">
+                            <Translate value="comingSoon" />
+                        </h1>
                     </Col>
                 </Row>
             </Container>
