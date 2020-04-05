@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UncontrolledCollapse, NavbarBrand, Navbar, NavItem, NavLink, Nav, Row, Col } from 'reactstrap';
+import { UncontrolledCollapse, NavbarBrand, Navbar, NavItem, NavLink, Nav, Row, Col, Collapse } from 'reactstrap';
 import { getPath } from '../../routes/routes';
 import './Menu.scss';
 import { Translate } from 'react-redux-i18n';
@@ -36,14 +36,7 @@ const Menu: FC = () => {
                 <button className="navbar-toggler" onClick={toggleNavBar}>
                     <span className="navbar-toggler-icon" />
                 </button>
-                <UncontrolledCollapse
-                    toggler="#content"
-                    navbar
-                    isOpen={isOpen}
-                    className={collapseClasses}
-                    onExiting={onExiting}
-                    onExited={onExited}
-                >
+                <Collapse navbar isOpen={isOpen} className={collapseClasses} onExiting={onExiting} onExited={onExited}>
                     <div className="navbar-collapse-header">
                         <Row>
                             <Col className="collapse-brand" xs="6">
@@ -75,7 +68,7 @@ const Menu: FC = () => {
                             </NavLink>
                         </NavItem>
                     </Nav>
-                </UncontrolledCollapse>
+                </Collapse>
             </Navbar>
         </header>
     );
