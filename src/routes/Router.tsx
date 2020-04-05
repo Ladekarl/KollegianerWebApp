@@ -9,21 +9,31 @@ import Register from '../features/register/components/Register';
 import ComingSoon from '../pages/comingSoon/ComingSoon';
 
 export default (
-    <div>
+    <div id="main">
         <Menu />
-        <Switch>
-            <Route exact path={getPath('home')} render={(): React.ReactElement => <Home />} />
-            <Route exact path={getPath('aboutUs')} render={(): React.ReactElement => <ComingSoon />} />
-            <Route exact path={getPath('privacyPolicy')} render={(): React.ReactElement => <ComingSoon />} />
-            <Route exact path={getPath('register')} render={(): React.ReactElement => <Register />} />
-            <Route exact path={getPath('login')} render={(): React.ReactElement => <Login forgotPassword={false} />} />
-            <Route
-                exact
-                path={getPath('forgotPassword')}
-                render={(): React.ReactElement => <Login forgotPassword={true} />}
-            />
-            <Route exact path={getPath('usermgt')} render={(): React.ReactElement => <Login forgotPassword={true} />} />
-        </Switch>
+        <div id="content">
+            <Switch>
+                <Route exact path={getPath('home')} render={(): React.ReactElement => <Home />} />
+                <Route exact path={getPath('aboutUs')} render={(): React.ReactElement => <ComingSoon />} />
+                <Route exact path={getPath('privacyPolicy')} render={(): React.ReactElement => <ComingSoon />} />
+                <Route exact path={getPath('register')} render={(): React.ReactElement => <Register />} />
+                <Route
+                    exact
+                    path={getPath('login')}
+                    render={(): React.ReactElement => <Login forgotPassword={false} />}
+                />
+                <Route
+                    exact
+                    path={getPath('forgotPassword')}
+                    render={(): React.ReactElement => <Login forgotPassword={true} />}
+                />
+                <Route
+                    exact
+                    path={getPath('usermgt')}
+                    render={(): React.ReactElement => <Login forgotPassword={true} />}
+                />
+            </Switch>
+        </div>
         <Footer />
     </div>
 );
