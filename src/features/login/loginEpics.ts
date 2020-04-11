@@ -68,7 +68,7 @@ export const authVerifyPasswordResetCodeEpic: RootEpic = (action$, state$, { api
         switchMap((action) =>
             from(api.auth.verifyPasswordResetCode(action.payload)).pipe(
                 map(verifyPasswordResetCodeAsync.success),
-                catchError((error) => {
+                catchError((error: Error) => {
                     if (error.message) {
                         toast.error(I18n.t(error.message));
                     }

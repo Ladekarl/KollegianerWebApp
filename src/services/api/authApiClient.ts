@@ -1,7 +1,6 @@
 import {
     UserModel,
     LoginModel,
-    RegisterModel,
     ResetPasswordModel,
     ConfirmPasswordResetModel,
     RevokeEmailChangeModel,
@@ -162,19 +161,19 @@ export async function verifyEmail(verifyEmailModel: VerifyEmailModel): Promise<b
     }
 }
 
-export function createUser(user: RegisterModel): Promise<UserModel> {
+export function createUser(): Promise<UserModel> {
     return new Promise((resolve, reject) => {
         reject();
     });
 }
 
-export function updateUser(user: UserModel): Promise<UserModel> {
+export function updateUser(): Promise<UserModel> {
     return new Promise((resolve, reject) => {
         reject();
     });
 }
 
-export function deleteUser(user: UserModel): Promise<boolean> {
+export function deleteUser(): Promise<boolean> {
     return new Promise((resolve, reject) => {
         reject();
     });

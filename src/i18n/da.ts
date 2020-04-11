@@ -45,6 +45,8 @@ const da = {
         forgotPasswordTypeMail: 'Indtast din email for at nulstille dit kodeord',
         resetPassword: 'Nulstil kodeord',
         passwordResetEmailSent: 'Der er blevet sendt en email som du kan bruge til at nulstille dit kodeord',
+        typeNewPassword: 'Indtast et nyt kodeord',
+        newPassword: 'Nyt kodeord',
     },
 };
 

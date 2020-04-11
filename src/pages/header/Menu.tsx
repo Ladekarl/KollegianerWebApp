@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UncontrolledCollapse, NavbarBrand, Navbar, NavItem, NavLink, Nav, Row, Col, Collapse } from 'reactstrap';
+import { NavbarBrand, Navbar, NavItem, NavLink, Nav, Row, Col, Collapse } from 'reactstrap';
 import { getPath } from '../../routes/routes';
 import './Menu.scss';
 import { Translate } from 'react-redux-i18n';

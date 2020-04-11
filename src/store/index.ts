@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, PreloadedState, Store, AnyAction } from 'redux';
+import { applyMiddleware, createStore, PreloadedState, Store, AnyAction, StoreEnhancer } from 'redux';
 import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
@@ -12,25 +12,25 @@ import { RootAction, RootState, Services } from 'GlobalTypes';
 import services from '../services';
 import rootEpic from './rootEpic';
 
+export const history = createBrowserHistory();
+
 export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, Services>({
     dependencies: services,
 });
 
-export const history = createBrowserHistory();
-
-const getMiddleware = () => {
+const getMiddleware = (): StoreEnhancer => {
     if (process.env.NODE_ENV === 'production') {
-        return applyMiddleware(thunk, routerMiddleware(history), epicMiddleware);
+        return applyMiddleware(thunk, epicMiddleware, routerMiddleware(history));
     }
 
-    return applyMiddleware(thunk, routerMiddleware(history), createLogger(), epicMiddleware);
+    return applyMiddleware(thunk, epicMiddleware, routerMiddleware(history), createLogger());
 };
 
-export function configureStore(preloadedState: PreloadedState<any>): Store<any, AnyAction> {
+export function configureStore(preloadedState: PreloadedState<RootState>): Store<RootState, AnyAction> {
     const store = createStore(rootReducer(history), preloadedState, composeWithDevTools(getMiddleware()));
 
     syncTranslationWithStore(store);
-    store.dispatch(loadTranslations(messages) as any);
+    store.dispatch(loadTranslations(messages) as never);
 
     return store;
 }
@@ -41,10 +41,6 @@ const initialState = {
     },
 };
 const overrideValues = {
-    register: {
-        isLoading: false,
-        error: new Error(),
-    },
     login: {
         isLoading: false,
         error: new Error(),

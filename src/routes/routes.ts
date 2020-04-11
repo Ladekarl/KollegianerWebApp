@@ -5,7 +5,7 @@ const pathsMap = {
     login: (): string => `/login`,
     register: (): string => `/register`,
     forgotPassword: (): string => `/forgot-password`,
-    usermgt: (): string => `/usermgt`,
+    usermgmt: (): string => `/usermgmt`,
 };
 type PathsMap = typeof pathsMap;
 
@@ -13,6 +13,6 @@ export const getPath = <TRoute extends keyof PathsMap>(
     route: TRoute,
     ...params: Parameters<PathsMap[TRoute]>
 ): string => {
-    const pathCb: (...args: any[]) => string = pathsMap[route];
+    const pathCb: (...args: unknown[]) => string = pathsMap[route];
     return pathCb(...params);
 };

@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-
-// reactstrap components
 import {
     Button,
     Card,

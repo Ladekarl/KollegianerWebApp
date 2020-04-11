@@ -12,24 +12,18 @@ import {
 } from 'reactstrap';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { Translate, I18n } from 'react-redux-i18n';
-import { RootState, ResetPasswordModel } from 'GlobalTypes';
-import { resetPasswordAsync } from '../loginActions';
-import { connect } from 'react-redux';
+import { ResetPasswordModel } from 'GlobalTypes';
 import PropTypes from 'prop-types';
+import { Action } from 'typesafe-actions';
 
-const mapStateToProps = (state: RootState) => ({
-    isLoading: state.login.isLoading,
-});
-
-const dispatchProps = {
-    resetPassword: (resetPasswordModel: ResetPasswordModel): void => {
-        resetPasswordAsync.request(resetPasswordModel);
-    },
+type Props = {
+    isLoading: boolean;
+    actionCode: string;
+    lang: string;
+    resetPassword: (resetPasswordModel: ResetPasswordModel) => Action;
 };
 
-type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
-
-const ForgotPasswordCard: FC<Props> = (props) => {
+const RecoverEmailCard: FC<Props> = (props) => {
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
 
@@ -98,9 +92,11 @@ const ForgotPasswordCard: FC<Props> = (props) => {
     );
 };
 
-ForgotPasswordCard.propTypes = {
+RecoverEmailCard.propTypes = {
     resetPassword: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    actionCode: PropTypes.string.isRequired,
+    lang: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, dispatchProps)(ForgotPasswordCard);
+export default RecoverEmailCard;
