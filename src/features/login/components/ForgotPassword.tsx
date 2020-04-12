@@ -73,21 +73,17 @@ const ForgotPassword: FC<Props> = (props) => {
                                     </small>
                                 </div>
                             </CardHeader>
-                            {emailSent ? (
-                                <CardBody className="px-lg-5 py-lg-5">
-                                    <div className="text-center text-muted mb-4">
-                                        <small>
+                            <CardBody className="px-lg-5 py-lg-5">
+                                <div className="text-center text-muted mb-4">
+                                    <small>
+                                        {emailSent ? (
                                             <Translate value="login.passwordResetEmailSent" />
-                                        </small>
-                                    </div>
-                                </CardBody>
-                            ) : (
-                                <CardBody className="px-lg-5 py-lg-5">
-                                    <div className="text-center text-muted mb-4">
-                                        <small>
+                                        ) : (
                                             <Translate value="login.forgotPasswordTypeMail" />
-                                        </small>
-                                    </div>
+                                        )}
+                                    </small>
+                                </div>
+                                {!emailSent && (
                                     <Form role="form">
                                         <FormGroup className="mb-3">
                                             <InputGroup className="input-group-alternative">
@@ -115,8 +111,8 @@ const ForgotPassword: FC<Props> = (props) => {
                                             </Button>
                                         </div>
                                     </Form>
-                                </CardBody>
-                            )}
+                                )}
+                            </CardBody>
                         </Card>
                         <Row className="mt-3">
                             <Col xs="6">

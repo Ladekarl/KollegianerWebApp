@@ -44,7 +44,7 @@ const da = {
         backToLogin: 'Tilbage til log ind',
         forgotPasswordTypeMail: 'Indtast din email for at nulstille dit kodeord',
         resetPassword: 'Nulstil kodeord',
-        passwordResetEmailSent: 'Der er blevet sendt en email som du kan bruge til at nulstille dit kodeord',
+        passwordResetEmailSent: 'Der er blevet sendt en email med at link du skal følge for at nulstille dit kodeord.',
         typeNewPassword: 'Indtast et nyt kodeord',
         newPassword: 'Nyt kodeord',
     },

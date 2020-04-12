@@ -15,6 +15,7 @@ import { Translate, I18n } from 'react-redux-i18n';
 import { VerifyPasswordResetCodeModel, ConfirmPasswordResetModel } from 'GlobalTypes';
 import PropTypes from 'prop-types';
 import { Action } from 'typesafe-actions';
+import LoadingSpinner from '../../app/components/LoadingSpinner';
 
 type Props = {
     isLoading: boolean;
@@ -66,58 +67,63 @@ const ResetPasswordCard: FC<Props> = ({
                     </small>
                 </div>
             </CardHeader>
-
             <CardBody className="px-lg-5 py-lg-5">
-                <div className="text-center text-muted mb-4">
-                    <small>
-                        <Translate value="login.typeNewPassword" />
-                    </small>
-                </div>
-                <Form role="form">
-                    <FormGroup className="mb-3">
-                        <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-email-83" />
-                                </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                                className="pl-1"
-                                placeholder={I18n.t('login.email')}
-                                type="email"
-                                disabled={true}
-                                value={email || ''}
-                            />
-                        </InputGroup>
-                    </FormGroup>
-                    <FormGroup>
-                        <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                                className="pl-1"
-                                placeholder={I18n.t('login.newPassword')}
-                                type="password"
-                                autoComplete="off"
-                                onChange={onChangePassword}
-                            />
-                        </InputGroup>
-                    </FormGroup>
-                    <div className="text-center">
-                        <Button
-                            className="my-4"
-                            color="primary"
-                            disabled={isLoading}
-                            onClick={onResetPasswordPressed}
-                            type="button"
-                        >
-                            <Translate value="login.resetPassword" />
-                        </Button>
-                    </div>
-                </Form>
+                {isLoading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <>
+                        <div className="text-center text-muted mb-4">
+                            <small>
+                                <Translate value="login.typeNewPassword" />
+                            </small>
+                        </div>
+                        <Form role="form">
+                            <FormGroup className="mb-3">
+                                <InputGroup className="input-group-alternative">
+                                    <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>
+                                            <i className="ni ni-email-83" />
+                                        </InputGroupText>
+                                    </InputGroupAddon>
+                                    <Input
+                                        className="pl-1"
+                                        placeholder={I18n.t('login.email')}
+                                        type="email"
+                                        disabled={true}
+                                        value={email || ''}
+                                    />
+                                </InputGroup>
+                            </FormGroup>
+                            <FormGroup>
+                                <InputGroup className="input-group-alternative">
+                                    <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>
+                                            <i className="ni ni-lock-circle-open" />
+                                        </InputGroupText>
+                                    </InputGroupAddon>
+                                    <Input
+                                        className="pl-1"
+                                        placeholder={I18n.t('login.newPassword')}
+                                        type="password"
+                                        autoComplete="off"
+                                        onChange={onChangePassword}
+                                    />
+                                </InputGroup>
+                            </FormGroup>
+                            <div className="text-center">
+                                <Button
+                                    className="my-4"
+                                    color="primary"
+                                    disabled={isLoading}
+                                    onClick={onResetPasswordPressed}
+                                    type="button"
+                                >
+                                    <Translate value="login.resetPassword" />
+                                </Button>
+                            </div>
+                        </Form>
+                    </>
+                )}
             </CardBody>
         </Card>
     );

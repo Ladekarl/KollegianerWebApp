@@ -37,7 +37,7 @@ export const confirmPasswordResetAsync = createAsyncAction(
     'CONFIRM_PASSWORD_RESET_REQUEST',
     'CONFIRM_PASSWORD_RESET_SUCCESS',
     'CONFIRM_PASSWORD_RESET_FAILURE',
-)<ConfirmPasswordResetModel, boolean, Error>();
+)<ConfirmPasswordResetModel, LoginModel, Error>();
 
 export const revokeEmailChangeAsync = createAsyncAction(
     'REVOKE_EMAIL_CHANGE_REQUEST',

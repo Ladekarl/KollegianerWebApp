@@ -119,12 +119,16 @@ export async function verifyPasswordResetCode(
     }
 }
 
-export async function confirmPasswordReset(confirmPasswordResetModel: ConfirmPasswordResetModel): Promise<boolean> {
+export async function confirmPasswordReset(confirmPasswordResetModel: ConfirmPasswordResetModel): Promise<LoginModel> {
     try {
         await firebase
             .auth()
             .confirmPasswordReset(confirmPasswordResetModel.actionCode, confirmPasswordResetModel.newPassword);
-        return true;
+
+        return {
+            username: confirmPasswordResetModel.email,
+            password: confirmPasswordResetModel.newPassword,
+        };
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = getErrorMessageFromFirebaseErrorCode(errorCode);

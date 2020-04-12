@@ -15,6 +15,7 @@ import { Translate, I18n } from 'react-redux-i18n';
 import { ResetPasswordModel } from 'GlobalTypes';
 import PropTypes from 'prop-types';
 import { Action } from 'typesafe-actions';
+import LoadingSpinner from '../../app/components/LoadingSpinner';
 
 type Props = {
     isLoading: boolean;
@@ -23,12 +24,12 @@ type Props = {
     resetPassword: (resetPasswordModel: ResetPasswordModel) => Action;
 };
 
-const RecoverEmailCard: FC<Props> = (props) => {
+const RecoverEmailCard: FC<Props> = ({ isLoading, actionCode, lang, resetPassword }) => {
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
 
     const onResetPasswordPressed = async (): Promise<void> => {
-        props.resetPassword({
+        resetPassword({
             email,
         });
         setEmailSent(true);
@@ -58,34 +59,44 @@ const RecoverEmailCard: FC<Props> = (props) => {
                 </CardBody>
             ) : (
                 <CardBody className="px-lg-5 py-lg-5">
-                    <div className="text-center text-muted mb-4">
-                        <small>
-                            <Translate value="login.forgotPasswordTypeMail" />
-                        </small>
-                    </div>
-                    <Form role="form">
-                        <FormGroup className="mb-3">
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="ni ni-email-83" />
-                                    </InputGroupText>
-                                </InputGroupAddon>
-                                <Input placeholder={I18n.t('login.email')} type="email" onChange={onChangeEmail} />
-                            </InputGroup>
-                        </FormGroup>
-                        <div className="text-center">
-                            <Button
-                                className="my-4"
-                                color="primary"
-                                disabled={props.isLoading}
-                                onClick={onResetPasswordPressed}
-                                type="button"
-                            >
-                                <Translate value="login.resetPassword" />
-                            </Button>
-                        </div>
-                    </Form>
+                    {isLoading ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <>
+                            <div className="text-center text-muted mb-4">
+                                <small>
+                                    <Translate value="login.forgotPasswordTypeMail" />
+                                </small>
+                            </div>
+                            <Form role="form">
+                                <FormGroup className="mb-3">
+                                    <InputGroup className="input-group-alternative">
+                                        <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>
+                                                <i className="ni ni-email-83" />
+                                            </InputGroupText>
+                                        </InputGroupAddon>
+                                        <Input
+                                            placeholder={I18n.t('login.email')}
+                                            type="email"
+                                            onChange={onChangeEmail}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <div className="text-center">
+                                    <Button
+                                        className="my-4"
+                                        color="primary"
+                                        disabled={isLoading}
+                                        onClick={onResetPasswordPressed}
+                                        type="button"
+                                    >
+                                        <Translate value="login.resetPassword" />
+                                    </Button>
+                                </div>
+                            </Form>
+                        </>
+                    )}
                 </CardBody>
             )}
         </Card>
