@@ -25,6 +25,7 @@
         "redux-devtools-extension": "^2.13.8",
         "redux-logger": "^3.0.6",
         "redux-observable": "^1.2.0",
+        "redux-persist": "^6.0.0",
         "redux-thunk": "^2.3.0"
     },
     "scripts": {
@@ -32,7 +33,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test --no-cache",
         "eject": "react-scripts eject",
-        "lint": "tsc && eslint '*/**/*.{js,ts,tsx}' --fix"
+        "lint": "tsc && eslint '*/**/*.{js,ts,tsx}' --fix",
+        "deploy": "npm run build && firebase deploy"
     },
     "eslintConfig": {
         "extends": "react-app"

@@ -84,6 +84,7 @@ export const authConfirmPasswordResetEpic: RootEpic = (action$, state$, { api, t
         switchMap((action) =>
             from(api.auth.confirmPasswordReset(action.payload)).pipe(
                 map(confirmPasswordResetAsync.success),
+                map((action) => loginUserAsync.request(action.payload)),
                 catchError((error: Error) => {
                     if (error.message) {
                         toast.error(I18n.t(error.message));
@@ -94,13 +95,7 @@ export const authConfirmPasswordResetEpic: RootEpic = (action$, state$, { api, t
         ),
     );
 
-export const authConfirmPasswordResetSuccessEpic: RootEpic = (action$) =>
-    action$.pipe(
-        filter(isActionOf(confirmPasswordResetAsync.success)),
-        map((action) => loginUserAsync.request(action.payload)),
-    );
-
-export const authRevokEmailChangeEpic: RootEpic = (action$, state$, { api, toast }) =>
+export const authRevokeEmailChangeEpic: RootEpic = (action$, state$, { api, toast }) =>
     action$.pipe(
         filter(isActionOf(revokeEmailChangeAsync.request)),
         switchMap((action) =>

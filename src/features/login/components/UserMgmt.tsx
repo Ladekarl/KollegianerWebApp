@@ -5,19 +5,26 @@ import { getPath } from '../../../routes/routes';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { RootState, ResetPasswordModel, VerifyPasswordResetCodeModel, ConfirmPasswordResetModel } from 'GlobalTypes';
-import { resetPasswordAsync, verifyPasswordResetCodeAsync, confirmPasswordResetAsync } from '../loginActions';
+import { EmailModel, ConfirmPasswordResetModel, ActionCodeModel, RootState, RootAction } from 'GlobalTypes';
+import {
+    resetPasswordAsync,
+    verifyPasswordResetCodeAsync,
+    confirmPasswordResetAsync,
+    revokeEmailChangeAsync,
+    verifyEmailAsync,
+} from '../loginActions';
 import queryString from 'query-string';
 import ResetPasswordCard from './ResetPasswordCard';
 import RecoverEmailCard from './RecoverEmailCard';
 import VerifyEmailCard from './VerifyEmailCard';
 import { useHistory } from 'react-router-dom';
-import { Action } from 'typesafe-actions';
 
 type DispatchProps = {
-    resetPassword: (resetPasswordModel: ResetPasswordModel) => Action;
-    verifyPasswordResetCodeAsync: (verifyPasswordResetCodeModel: VerifyPasswordResetCodeModel) => Action;
-    confirmPasswordResetAsync: (confirmPasswordResetModel: ConfirmPasswordResetModel) => Action;
+    resetPasswordAsync: (emailModel: EmailModel) => RootAction;
+    verifyPasswordResetCodeAsync: (actionCodeModel: ActionCodeModel) => RootAction;
+    confirmPasswordResetAsync: (confirmPasswordResetModel: ConfirmPasswordResetModel) => RootAction;
+    revokeEmailChangeAsync: (actionCodeModel: ActionCodeModel) => RootAction;
+    verifyEmailAsync: (actionCodeModel: ActionCodeModel) => RootAction;
 };
 
 type StateProps = {
@@ -28,17 +35,20 @@ type StateProps = {
 type Props = DispatchProps & StateProps;
 
 const mapDispatchToProps: DispatchProps = {
-    resetPassword: (resetPasswordModel: ResetPasswordModel): Action =>
-        resetPasswordAsync.request({ ...resetPasswordModel }),
-    verifyPasswordResetCodeAsync: (verifyPasswordResetCodeModel: VerifyPasswordResetCodeModel): Action =>
-        verifyPasswordResetCodeAsync.request({ ...verifyPasswordResetCodeModel }),
-    confirmPasswordResetAsync: (confirmPasswordResetModel: ConfirmPasswordResetModel): Action =>
+    resetPasswordAsync: (emailModel: EmailModel): RootAction => resetPasswordAsync.request({ ...emailModel }),
+    verifyPasswordResetCodeAsync: (actionCodeModel: ActionCodeModel): RootAction =>
+        verifyPasswordResetCodeAsync.request({ ...actionCodeModel }),
+    confirmPasswordResetAsync: (confirmPasswordResetModel: ConfirmPasswordResetModel): RootAction =>
         confirmPasswordResetAsync.request({ ...confirmPasswordResetModel }),
+    revokeEmailChangeAsync: (actionCodeModel: ActionCodeModel): RootAction =>
+        revokeEmailChangeAsync.request({ ...actionCodeModel }),
+    verifyEmailAsync: (actionCodeModel: ActionCodeModel): RootAction =>
+        verifyEmailAsync.request({ ...actionCodeModel }),
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({
     isLoading: state.login.isLoading,
-    email: state.login.resetPassword.email || null,
+    email: state.login.email.email || null,
 });
 
 type FirebaseEmailActionHandlerParams = {
@@ -52,9 +62,11 @@ type FirebaseEmailActionHandlerParams = {
 const UserMgmt: FC<Props> = ({
     isLoading,
     email,
-    resetPassword,
+    resetPasswordAsync,
     verifyPasswordResetCodeAsync,
     confirmPasswordResetAsync,
+    revokeEmailChangeAsync,
+    verifyEmailAsync,
 }) => {
     let content;
     const history = useHistory();
@@ -76,7 +88,14 @@ const UserMgmt: FC<Props> = ({
         );
     } else if (mode === 'recoverEmail') {
         content = (
-            <RecoverEmailCard isLoading={isLoading} actionCode={oobCode} lang={lang} resetPassword={resetPassword} />
+            <RecoverEmailCard
+                isLoading={isLoading}
+                actionCode={oobCode}
+                lang={lang}
+                email={email}
+                resetPasswordAsync={resetPasswordAsync}
+                revokeEmailChangeAsync={revokeEmailChangeAsync}
+            />
         );
     } else if (mode === 'verifyEmail') {
         content = (
@@ -85,7 +104,7 @@ const UserMgmt: FC<Props> = ({
                 actionCode={oobCode}
                 continueUrl={continueUrl}
                 lang={lang}
-                resetPassword={resetPassword}
+                verifyEmailAsync={verifyEmailAsync}
             />
         );
     } else {
@@ -125,9 +144,11 @@ const UserMgmt: FC<Props> = ({
 UserMgmt.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     email: PropTypes.string,
-    resetPassword: PropTypes.func.isRequired,
+    resetPasswordAsync: PropTypes.func.isRequired,
     verifyPasswordResetCodeAsync: PropTypes.func.isRequired,
     confirmPasswordResetAsync: PropTypes.func.isRequired,
+    revokeEmailChangeAsync: PropTypes.func.isRequired,
+    verifyEmailAsync: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMgmt);

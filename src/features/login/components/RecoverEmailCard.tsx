@@ -10,34 +10,39 @@ import {
     InputGroupText,
     Input,
 } from 'reactstrap';
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Translate, I18n } from 'react-redux-i18n';
-import { ResetPasswordModel } from 'GlobalTypes';
 import PropTypes from 'prop-types';
-import { Action } from 'typesafe-actions';
 import LoadingSpinner from '../../app/components/LoadingSpinner';
+import { ActionCodeModel, EmailModel, RootAction } from 'GlobalTypes';
 
 type Props = {
     isLoading: boolean;
     actionCode: string;
     lang: string;
-    resetPassword: (resetPasswordModel: ResetPasswordModel) => Action;
+    email: string | null;
+    revokeEmailChangeAsync: (actionCodeModel: ActionCodeModel) => RootAction;
+    resetPasswordAsync: (emailModel: EmailModel) => RootAction;
 };
 
-const RecoverEmailCard: FC<Props> = ({ isLoading, actionCode, lang, resetPassword }) => {
-    const [email, setEmail] = useState('');
+const RecoverEmailCard: FC<Props> = ({ isLoading, actionCode, email, revokeEmailChangeAsync, resetPasswordAsync }) => {
     const [emailSent, setEmailSent] = useState(false);
 
-    const onResetPasswordPressed = async (): Promise<void> => {
-        resetPassword({
-            email,
-        });
-        setEmailSent(true);
-    };
+    useEffect(() => {
+        if (actionCode) {
+            revokeEmailChangeAsync({
+                actionCode: actionCode,
+            });
+        }
+    }, [actionCode, revokeEmailChangeAsync]);
 
-    const onChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-        const email = e.target.value;
-        setEmail(email);
+    const onResetPasswordPressed = async (): Promise<void> => {
+        if (email) {
+            resetPasswordAsync({
+                email,
+            });
+            setEmailSent(true);
+        }
     };
 
     return (
@@ -45,29 +50,25 @@ const RecoverEmailCard: FC<Props> = ({ isLoading, actionCode, lang, resetPasswor
             <CardHeader className="bg-white">
                 <div className="text-muted text-center">
                     <small>
-                        <Translate value="login.forgotPassword" />
+                        <Translate value="login.recoverEmail" />
                     </small>
                 </div>
             </CardHeader>
-            {emailSent ? (
-                <CardBody className="px-lg-5 py-lg-5">
-                    <div className="text-center text-muted mb-4">
-                        <small>
-                            <Translate value="login.passwordResetEmailSent" />
-                        </small>
-                    </div>
-                </CardBody>
-            ) : (
-                <CardBody className="px-lg-5 py-lg-5">
-                    {isLoading ? (
-                        <LoadingSpinner />
-                    ) : (
-                        <>
-                            <div className="text-center text-muted mb-4">
-                                <small>
-                                    <Translate value="login.forgotPasswordTypeMail" />
-                                </small>
-                            </div>
+            <CardBody className="px-lg-5 py-lg-5">
+                {isLoading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <>
+                        <div className="text-center text-muted mb-4">
+                            <small>
+                                {emailSent ? (
+                                    <Translate value="login.passwordResetEmailSent" />
+                                ) : (
+                                    <Translate value="login.recoverEmailReverted" />
+                                )}
+                            </small>
+                        </div>
+                        {!emailSent && (
                             <Form role="form">
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
@@ -77,9 +78,11 @@ const RecoverEmailCard: FC<Props> = ({ isLoading, actionCode, lang, resetPasswor
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
+                                            className="pl-1"
                                             placeholder={I18n.t('login.email')}
                                             type="email"
-                                            onChange={onChangeEmail}
+                                            disabled={true}
+                                            value={email || ''}
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -95,19 +98,21 @@ const RecoverEmailCard: FC<Props> = ({ isLoading, actionCode, lang, resetPasswor
                                     </Button>
                                 </div>
                             </Form>
-                        </>
-                    )}
-                </CardBody>
-            )}
+                        )}
+                    </>
+                )}
+            </CardBody>
         </Card>
     );
 };
 
 RecoverEmailCard.propTypes = {
-    resetPassword: PropTypes.func.isRequired,
+    revokeEmailChangeAsync: PropTypes.func.isRequired,
+    resetPasswordAsync: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired,
     actionCode: PropTypes.string.isRequired,
     lang: PropTypes.string.isRequired,
+    email: PropTypes.string,
 };
 
 export default RecoverEmailCard;

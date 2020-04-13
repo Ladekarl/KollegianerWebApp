@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { PersistGate } from 'redux-persist/es/integration/react';
 import './styles/custom.scss';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import { Provider } from 'react-redux';
-import store, { history } from './store';
+import store, { persistor, history } from './store';
+import LoadingSpinner from './features/app/components/LoadingSpinner';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App history={history} />
+        <PersistGate loading={<LoadingSpinner />} persistor={persistor}>
+            <App history={history} />
+        </PersistGate>
     </Provider>,
     document.getElementById('root'),
 );

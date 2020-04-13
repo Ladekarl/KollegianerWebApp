@@ -1,14 +1,16 @@
-import { applyMiddleware, createStore, PreloadedState, Store, AnyAction, StoreEnhancer } from 'redux';
+import { applyMiddleware, createStore, StoreEnhancer, Store } from 'redux';
 import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import rootReducer from './rootReducer';
 import thunk from 'redux-thunk';
-import { syncTranslationWithStore, loadTranslations } from 'react-redux-i18n';
+import { syncTranslationWithStore, loadTranslations, setLocale, I18nState } from 'react-redux-i18n';
 import messages from '../i18n';
 import { createEpicMiddleware } from 'redux-observable';
 import { RootAction, RootState, Services } from 'GlobalTypes';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import services from '../services';
 import rootEpic from './rootEpic';
 
@@ -18,6 +20,11 @@ export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootS
     dependencies: services,
 });
 
+const persistConfig = {
+    key: 'root',
+    storage: storage,
+};
+
 const getMiddleware = (): StoreEnhancer => {
     if (process.env.NODE_ENV === 'production') {
         return applyMiddleware(thunk, epicMiddleware, routerMiddleware(history));
@@ -26,30 +33,24 @@ const getMiddleware = (): StoreEnhancer => {
     return applyMiddleware(thunk, epicMiddleware, routerMiddleware(history), createLogger());
 };
 
-export function configureStore(preloadedState: PreloadedState<RootState>): Store<RootState, AnyAction> {
-    const store = createStore(rootReducer(history), preloadedState, composeWithDevTools(getMiddleware()));
-
+const setupI18n = (store: Store): void => {
     syncTranslationWithStore(store);
     store.dispatch(loadTranslations(messages) as never);
+    const i18nState = store.getState().i18n as I18nState;
+    if (!i18nState.locale) store.dispatch(setLocale('en') as never);
+};
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function configureStore() {
+    const pReducer = persistReducer(persistConfig, rootReducer(history));
+    const store = createStore(pReducer, composeWithDevTools(getMiddleware()));
+    setupI18n(store);
     return store;
 }
-
-const initialState = {
-    i18n: {
-        locale: 'da',
-    },
-};
-const overrideValues = {
-    login: {
-        isLoading: false,
-        error: new Error(),
-    },
-};
-const preloadedState = services.localStorage.get('store') || initialState;
-const preloadedOverriddenState = { ...preloadedState, ...overrideValues };
-const store = configureStore(preloadedOverriddenState);
+const store = configureStore();
 
 epicMiddleware.run(rootEpic);
+
+export const persistor = persistStore(store);
 
 export default store;

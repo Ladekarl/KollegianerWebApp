@@ -20,35 +20,31 @@ import { getPath } from '../../../routes/routes';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { RootState, LoginModel } from 'GlobalTypes';
+import { RootState, LoginModel, RootAction } from 'GlobalTypes';
 import { loginFacebookAsync, loginUserAsync } from '../loginActions';
-import { Action } from 'typesafe-actions';
-import { UserModel } from 'GlobalTypes';
 import LoadingSpinner from '../../app/components/LoadingSpinner';
 
 type DispatchProps = {
-    loginFacebook: () => Action;
-    loginUser: (login: LoginModel) => Action;
+    loginFacebook: () => RootAction;
+    loginUser: (login: LoginModel) => RootAction;
 };
 
 type StateProps = {
     isLoading: boolean;
-    user: UserModel;
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({
     isLoading: state.login.isLoading,
-    user: state.login.user,
 });
 
 const mapDispatchToProps: DispatchProps = {
-    loginFacebook: (): Action => loginFacebookAsync.request(),
-    loginUser: (login: LoginModel): Action => loginUserAsync.request({ ...login }),
+    loginFacebook: (): RootAction => loginFacebookAsync.request(),
+    loginUser: (login: LoginModel): RootAction => loginUserAsync.request({ ...login }),
 };
 
 type Props = DispatchProps & StateProps;
 
-const Login: FC<Props> = ({ loginFacebook, loginUser, isLoading, user }) => {
+const Login: FC<Props> = ({ loginFacebook, loginUser, isLoading }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

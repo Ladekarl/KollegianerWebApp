@@ -38,6 +38,20 @@ const en = {
         popupBlocked: 'The popup was blocked',
         popupClosedByUser: 'The popup was closed',
         unauthorizedDomainNr: 'Unauthorized domain number',
+        expiredActionCode: 'The link has expired. Try and reset your password again.',
+        invalidActionCode: 'The link is invalid. Try and reset your password again.',
+        weakPassword: 'The password is too weak',
+        backToLogin: 'Back to login',
+        forgotPasswordTypeMail: 'Type you email to reset your password.',
+        resetPassword: 'Reset password',
+        passwordResetEmailSent: 'A link to reset your password has been sent to your email.',
+        typeNewPassword: 'Type a new password',
+        newPassword: 'New password',
+        recoverEmail: 'Recover email',
+        recoverEmailReverted:
+            'Your email has been recovered to the following. If the email was not changed by you, please reset your password.',
+        verifyEmail: 'Verify email',
+        emailVerified: 'Your email has been verified.',
     },
 };
 

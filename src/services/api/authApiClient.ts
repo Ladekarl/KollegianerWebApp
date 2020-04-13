@@ -1,12 +1,4 @@
-import {
-    UserModel,
-    LoginModel,
-    ResetPasswordModel,
-    ConfirmPasswordResetModel,
-    RevokeEmailChangeModel,
-    VerifyEmailModel,
-    VerifyPasswordResetCodeModel,
-} from 'GlobalTypes';
+import { UserModel, LoginModel, EmailModel, ConfirmPasswordResetModel, ActionCodeModel } from 'GlobalTypes';
 import firebase, { FacebookAuthProvider } from '../../firebase';
 import { getPath } from '../../routes/routes';
 
@@ -89,7 +81,7 @@ export async function loginFacebook(): Promise<UserModel> {
     }
 }
 
-export async function resetPassword(resetPasswordModel: ResetPasswordModel): Promise<boolean> {
+export async function resetPassword(resetPasswordModel: EmailModel): Promise<boolean> {
     const actionCodeSettings = {
         url: DOMAIN + getPath('forgotPassword') + '?email=' + resetPasswordModel.email,
         handleCodeInApp: true,
@@ -104,9 +96,7 @@ export async function resetPassword(resetPasswordModel: ResetPasswordModel): Pro
     }
 }
 
-export async function verifyPasswordResetCode(
-    verifyPasswordResetCodeModel: VerifyPasswordResetCodeModel,
-): Promise<ResetPasswordModel> {
+export async function verifyPasswordResetCode(verifyPasswordResetCodeModel: ActionCodeModel): Promise<EmailModel> {
     try {
         const email = await firebase.auth().verifyPasswordResetCode(verifyPasswordResetCodeModel.actionCode);
         return {
@@ -136,7 +126,7 @@ export async function confirmPasswordReset(confirmPasswordResetModel: ConfirmPas
     }
 }
 
-export async function revokeEmailChange(revokeEmailChangeModel: RevokeEmailChangeModel): Promise<ResetPasswordModel> {
+export async function revokeEmailChange(revokeEmailChangeModel: ActionCodeModel): Promise<EmailModel> {
     try {
         const actionCode = revokeEmailChangeModel.actionCode;
         const info = await firebase.auth().checkActionCode(actionCode);
@@ -154,9 +144,9 @@ export async function revokeEmailChange(revokeEmailChangeModel: RevokeEmailChang
     }
 }
 
-export async function verifyEmail(verifyEmailModel: VerifyEmailModel): Promise<boolean> {
+export async function verifyEmail(verifyEmailModel: ActionCodeModel): Promise<boolean> {
     try {
-        firebase.auth().applyActionCode(verifyEmailModel.ationCode);
+        firebase.auth().applyActionCode(verifyEmailModel.actionCode);
         return true;
     } catch (error) {
         const errorCode = error.code;

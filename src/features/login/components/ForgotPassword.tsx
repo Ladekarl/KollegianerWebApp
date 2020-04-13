@@ -16,20 +16,19 @@ import {
 } from 'reactstrap';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { Translate, I18n } from 'react-redux-i18n';
-import { RootState, ResetPasswordModel } from 'GlobalTypes';
+import { RootState, EmailModel, RootAction } from 'GlobalTypes';
 import { resetPasswordAsync } from '../loginActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getPath } from '../../../routes/routes';
 import { Link } from 'react-router-dom';
-import { Action } from 'typesafe-actions';
 
 type StateProps = {
     isLoading: boolean;
 };
 
 type DispatchProps = {
-    resetPassword: (resetPasswordModel: ResetPasswordModel) => Action;
+    resetPasswordAsync: (emailModel: EmailModel) => RootAction;
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({
@@ -37,8 +36,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
 });
 
 const dispatchProps: DispatchProps = {
-    resetPassword: (resetPasswordModel: ResetPasswordModel): Action =>
-        resetPasswordAsync.request({ ...resetPasswordModel }),
+    resetPasswordAsync: (emailModel: EmailModel): RootAction => resetPasswordAsync.request({ ...emailModel }),
 };
 
 type Props = StateProps & DispatchProps;
@@ -48,10 +46,12 @@ const ForgotPassword: FC<Props> = (props) => {
     const [emailSent, setEmailSent] = useState(false);
 
     const onResetPasswordPressed = async (): Promise<void> => {
-        props.resetPassword({
-            email,
-        });
-        setEmailSent(true);
+        if (email) {
+            props.resetPasswordAsync({
+                email,
+            });
+            setEmailSent(true);
+        }
     };
 
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -138,7 +138,7 @@ const ForgotPassword: FC<Props> = (props) => {
 };
 
 ForgotPassword.propTypes = {
-    resetPassword: PropTypes.func.isRequired,
+    resetPasswordAsync: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired,
 };
 

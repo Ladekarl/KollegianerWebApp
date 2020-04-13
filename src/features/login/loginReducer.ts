@@ -1,4 +1,4 @@
-import { UserModel, ResetPasswordModel } from 'GlobalTypes';
+import { UserModel, EmailModel } from 'GlobalTypes';
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
 
@@ -81,7 +81,7 @@ const loginReducer = combineReducers({
             ],
             (state, action) => action.payload,
         ),
-    resetPassword: createReducer({} as ResetPasswordModel).handleAction(
+    email: createReducer({} as EmailModel).handleAction(
         [verifyPasswordResetCodeAsync.success, revokeEmailChangeAsync.success],
         (state, action) => action.payload,
     ),

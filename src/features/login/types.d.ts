@@ -8,21 +8,15 @@ declare module 'GlobalTypes' {
         username: string;
         password: string;
     };
-    export type ResetPasswordModel = {
+    export type EmailModel = {
         email: string;
     };
-    export type VerifyPasswordResetCodeModel = {
+    export type ActionCodeModel = {
         actionCode: string;
     };
     export type ConfirmPasswordResetModel = {
         email: string;
         actionCode: string;
         newPassword: string;
-    };
-    export type RevokeEmailChangeModel = {
-        actionCode: string;
-    };
-    export type VerifyEmailModel = {
-        ationCode: string;
     };
 }

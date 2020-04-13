@@ -12,9 +12,8 @@ import {
 } from 'reactstrap';
 import React, { ChangeEvent, FC, useState, useEffect } from 'react';
 import { Translate, I18n } from 'react-redux-i18n';
-import { VerifyPasswordResetCodeModel, ConfirmPasswordResetModel } from 'GlobalTypes';
+import { ActionCodeModel, ConfirmPasswordResetModel, RootAction } from 'GlobalTypes';
 import PropTypes from 'prop-types';
-import { Action } from 'typesafe-actions';
 import LoadingSpinner from '../../app/components/LoadingSpinner';
 
 type Props = {
@@ -23,8 +22,8 @@ type Props = {
     actionCode: string;
     continueUrl: string;
     lang: string;
-    verifyPasswordResetCodeAsync: (verifyPasswordResetCodeModel: VerifyPasswordResetCodeModel) => Action;
-    confirmPasswordResetAsync: (confirmPasswordResetModel: ConfirmPasswordResetModel) => Action;
+    verifyPasswordResetCodeAsync: (actionCodeModel: ActionCodeModel) => RootAction;
+    confirmPasswordResetAsync: (confirmPasswordResetModel: ConfirmPasswordResetModel) => RootAction;
 };
 
 const ResetPasswordCard: FC<Props> = ({
@@ -37,7 +36,6 @@ const ResetPasswordCard: FC<Props> = ({
     const [password, setPassword] = useState('');
 
     useEffect(() => {
-        console.log(actionCode);
         verifyPasswordResetCodeAsync({
             actionCode: actionCode,
         });
